@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HelpLine</title>
+
+     <!-- tailwindcss -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- daisyUI cdn -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <!-- fontawesome cdn -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+   <header>
+     <section class="flex items-center justify-between max-w[90%] mx-auto">
+        <div class="nav-left flex ml-5 ">
+            <img class="w-[50px] h-[50px]" src="./assets/Bangladesh-Railway.png" alt="">
+            <h1 class="text-[#006747] font-extrabold ml-3 text-[18px]">Emergency <br>service</h1>
+        </div>
+        <div class="nav-right flex mr-5">
+            <button id="heard-count" class="btn rounded-xl mr-5 ">0 <span><img class="h-[30px] w-[30px]" src="./assets/heart.png " alt=""></span></button>
+            <button id="coin-count" class="btn rounded-3xl mr-5">100 <span><img class="h-[30px] w-[30px]" src="./assets/coin.png " alt=""></span></button>
+            <button id="copy-count" class="btn">0 <span>Copy</span></button>
+           
+           
+        </div>
+    </section>
+
+    <section class="banner bg-[#006747] text-[#fff] items-center">
+        <img src="./assets/Bangladesh-Railway.png" alt="">
+        <h2 class="font-extrabold">জরুরি সেবা ডিরেক্টরি</h2>
+        <P>Government Emergency Services at Your Fingertip – A Project by  Government of the People’s Republic of Bangladesh</P>
+    </section>
+
+   </header>
+
+   <main class="bg-[#F5FFF6]">
+    <section class="cards">
+       
+       <div class=" w-[300px] border-2 bg-[#fff] rounded-xl  ">
+        <div class="p-5">
+             <div class="flex justify-between">
+             <div>
+            <div class="mb-3">
+                <img class="h-[60px] w-[60px] bg-[#FFE3E2] rounded p-3" src="./assets/emergency.png" alt="">
+                <h2 class="font-extrabold mt-3 text-[20px]">জাতীয় জরুরি সেবা</h2>
+                <p>National Emergency</p>
+            </div>
+            <div class="mb-3">
+                <h2 class="font-extrabold text-[32px]">999</h2>
+                <button class="btn btn-sm">সার্বজনীন</button>
+            </div>
+        </div>
+           <div>
+            <i class="fa-regular fa-heart"></i>
+        </div> 
+        </div>
+        
+        <div>
+            <button class="btn w-[40%]"><i class="fa-regular fa-copy"></i> <span>Copy</span></button>
+            <button class="btn btn-[#00A63E] w-[40%]"><i class="fa-regular fa-phone"></i> <span>Call</span></button>
+            
+        </div>
+        </div>
+
+       </div>
+
+    </section>
+   </main>
+
+
+    <script src="./index.js"></script>
+</body>
+</html>
