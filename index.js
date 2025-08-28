@@ -47,11 +47,12 @@ cardsContainer.addEventListener('click', async (e) => {
     coinEl.innerText = available - COST_PER_CALL;
 
     // alert box with title + number
-    alert(`${card.dataset.title}\n${card.dataset.number}`);
+    alert(`${card.dataset.title}${card.dataset.number}...`);
 
     addToHistory(card.dataset.title, card.dataset.number);
   }
 });
+
 
 // Add item to history section
 function addToHistory(title = 'Unknown', number = '') {
