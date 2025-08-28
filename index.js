@@ -28,7 +28,7 @@ cardsContainer.addEventListener('click', async (e) => {
     try {
       if (navigator.clipboard && num) {
         await navigator.clipboard.writeText(num);
-        alert(`Copied: ${num}`);
+        alert(`ওকে কিক্ল করলে: ${num} নম্বরটি কপি হয়ে যাবে!`);
       }
     } catch (_) {
       alert("Copy failed");
@@ -41,7 +41,7 @@ cardsContainer.addEventListener('click', async (e) => {
     e.preventDefault();
     const available = parseInt(coinEl.innerText) || 0;
     if (available < COST_PER_CALL) {
-      alert('not enough coin for call');
+      alert('আপনার পর্যাপ্ত কয়েন নেই! কল করতে কমপক্ষে ২০টি কয়েন লাগবে।');
       return;
     }
     coinEl.innerText = available - COST_PER_CALL;
