@@ -47,7 +47,7 @@ cardsContainer.addEventListener('click', async (e) => {
     coinEl.innerText = available - COST_PER_CALL;
 
     // alert box with title + number
-    alert(`${card.dataset.title}${card.dataset.number}...`);
+    alert(`${card.dataset.title} ${card.dataset.number}...`);
 
     addToHistory(card.dataset.title, card.dataset.number);
   }
@@ -59,17 +59,28 @@ function addToHistory(title = 'Unknown', number = '') {
   const item = document.createElement('div');
   item.className = 'flex items-center justify-between bg-[#FAFAFA] p-5 my-4 rounded-lg';
 
-  const timeStr = new Date().toLocaleString('bn-BD', { hour12: false });
+   // Time only, English, with AM/PM
+  const timeStr = new Date().toLocaleString('en-us', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+ const leftDiv = document.createElement('div');
+  const titleEl = document.createElement('p');
+  titleEl.className = 'text-xl font-semibold';
+  titleEl.textContent = title;
 
-  item.innerHTML = `
-    <div>
-      <p class="text-xl font-semibold">${sanitize(title)}</p>
-      <p>${sanitize(number)}</p>
-    </div>
-    <div class="text-right">
-      <p>${timeStr}</p>
-    </div>
-  `;
+  const numEl = document.createElement('p');
+  numEl.textContent = number;
+
+  leftDiv.appendChild(titleEl);
+  leftDiv.appendChild(numEl);
+
+  const rightDiv = document.createElement('div');
+  rightDiv.className = 'text-right';
+  const timeEl = document.createElement('p');
+  timeEl.textContent = timeStr;
+  rightDiv.appendChild(timeEl);
+
+  item.appendChild(leftDiv);
+  item.appendChild(rightDiv);
+
   historyList.prepend(item);
 }
 
@@ -79,9 +90,15 @@ el('#clear-history').addEventListener('click', (e) => {
   historyList.innerHTML = '';
 });
 
-// Simple sanitizer
-function sanitize(s) {
-  return String(s).replace(/[&<>"']/g, (m) => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-  }[m]));
-}
+
+
+
+
+
+
+
+
+
+
+
+
