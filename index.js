@@ -1,49 +1,86 @@
-document.getElementById("callbutton").addEventListener("click",function(e){
-    e.preventDefault()
-    console.log("yes tiggered")
+// Utility selectors
+const el = (sel, root = document) => root.querySelector(sel);
+const cardsContainer = el('.cards');
+const coinEl = el('#coin-count');
+const heartEl = el('#heart-count');
+const copyEl = el('#copy-count');
+const historyList = el('#history-list');
+const COST_PER_CALL = 20;
 
-   const avablecoint = parseInt(document.getElementById("coin-count").innerText)
+// Event delegation for all cards
+cardsContainer.addEventListener('click', async (e) => {
+  const card = e.target.closest('.service-card');
+  if (!card) return;
 
-   const currentCoin = avablecoint - 20 ; 
-   
-   
-
-  
-
-
-   if (currentCoin < 20 ) {
-    alert("not enf coin for call")
+  // Heart
+  if (e.target.closest('.heart-btn')) {
+    const current = parseInt(heartEl.innerText) || 0;
+    heartEl.innerText = current + 1;
     return;
-   }
+  }
 
-    document.getElementById("coin-count").innerText = currentCoin;
-   
-})
+  // Copy
+  if (e.target.closest('.copy-btn')) {
+    const num = card.dataset.number || '';
+    const current = parseInt(copyEl.innerText) || 0;
+    copyEl.innerText = current + 1;
 
-// HeardCount
-document.getElementById("heardicon").addEventListener("click",function(e){
-    e.preventDefault()
+    try {
+      if (navigator.clipboard && num) {
+        await navigator.clipboard.writeText(num);
+        alert(`Copied: ${num}`);
+      }
+    } catch (_) {
+      alert("Copy failed");
+    }
+    return;
+  }
 
-   const avableheart = parseInt(document.getElementById("heard-count").innerText)
+  // Call
+  if (e.target.closest('.call-btn')) {
+    e.preventDefault();
+    const available = parseInt(coinEl.innerText) || 0;
+    if (available < COST_PER_CALL) {
+      alert('not enough coin for call');
+      return;
+    }
+    coinEl.innerText = available - COST_PER_CALL;
 
-   const currentheard = avableheart + 1 ; 
-   
-   
+    // alert box with title + number
+    alert(`${card.dataset.title}\n${card.dataset.number}`);
 
-   document.getElementById("heard-count").innerText = currentheard;
-})
+    addToHistory(card.dataset.title, card.dataset.number);
+  }
+});
 
-// Copycount
-document.getElementById("copyicon").addEventListener("click",function(e){
-    e.preventDefault()
+// Add item to history section
+function addToHistory(title = 'Unknown', number = '') {
+  const item = document.createElement('div');
+  item.className = 'flex items-center justify-between bg-[#FAFAFA] p-5 my-4 rounded-lg';
 
-   const avablecopy = parseInt(document.getElementById("copy-count").innerText)
+  const timeStr = new Date().toLocaleString('bn-BD', { hour12: false });
 
-   const currentcopy = avablecopy + 1 ; 
-   
-   
+  item.innerHTML = `
+    <div>
+      <p class="text-xl font-semibold">${sanitize(title)}</p>
+      <p>${sanitize(number)}</p>
+    </div>
+    <div class="text-right">
+      <p>${timeStr}</p>
+    </div>
+  `;
+  historyList.prepend(item);
+}
 
-   document.getElementById("copy-count").innerText = currentcopy +1;
-})
+// Clear history
+el('#clear-history').addEventListener('click', (e) => {
+  e.preventDefault();
+  historyList.innerHTML = '';
+});
 
-
+// Simple sanitizer
+function sanitize(s) {
+  return String(s).replace(/[&<>"']/g, (m) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[m]));
+}
