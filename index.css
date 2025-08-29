@@ -21,4 +21,7 @@
     display: flex;
     flex-direction: column-reverse;
   }
+  .heardbutton{
+    margin-left: 22px;
+  }
 } 
